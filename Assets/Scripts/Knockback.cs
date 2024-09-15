@@ -8,39 +8,30 @@ public class Knockback : MonoBehaviour
     public float timeTillDestroy;
 
     public LayerMask enemyLayer;
+    public Animator animator;
 
 
 
     //Active when detection the enemy layer.
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if ((enemyLayer & (1 << other.gameObject.layer)) != 0)
+        if (other.gameObject.layer == LayerMask.NameToLayer("enemy"))
         {
-            ApplyKnockback(other);
+            Rigidbody enemyRb = other.gameObject.GetComponent<Rigidbody>();
 
-            StartCoroutine(Destroy());
-        }
-    }
+            //Knockback effect.
+            if (enemyRb != null)
+            {
+                animator.SetTrigger("isSwinging");
 
-    //creates the knockback force and applies it to the rigidbody of the collided enemy.
-    private void ApplyKnockback(Collider enemy)
-    {
-        Vector3 knockbackDirection = (transform.position - enemy.transform.position).normalized;
+                Vector3 knockbackDirection = other.transform.position - transform.position;
+                knockbackDirection.y = 0;
 
-        Rigidbody rb = GetComponent<Rigidbody>();
+                enemyRb.AddForce(knockbackDirection.normalized * knockback, ForceMode.Impulse);
 
-        if (rb != null)
-        {
-            rb.AddForce(knockbackDirection * knockback, ForceMode.Impulse);
-        }
-
-        Debug.Log("Enemy has been knocked back");
-    }
-
-    //After waiting x amount of seconds, destroys the collided game object.
-    private IEnumerator Destroy()
-    {
-        yield return new WaitForSeconds(timeTillDestroy);
-        Destroy(gameObject);
+                //Destroys the enemy after specified time frame.
+                Destroy(other.gameObject, timeTillDestroy);
+            }
+        } 
     }
 }

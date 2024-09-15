@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
         {
             if (!isAttacking)
             {
-                StartCoroutine(Attack());
+               // StartCoroutine(Attack());
             }
         }
     }
