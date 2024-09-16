@@ -24,6 +24,9 @@ public class Knockback : MonoBehaviour
             //Knockback effect.
             if (enemyRb != null)
             {
+
+                StartCoroutine(RagdollDelay(ragdoll, ragdollDelay));
+
                 Vector3 knockbackDirection = other.transform.position - transform.position;
                 knockbackDirection.y = 0;
 
@@ -31,7 +34,6 @@ public class Knockback : MonoBehaviour
                 enemyRb.isKinematic = false;
                 enemyRb.AddForce(force, ForceMode.Impulse);
 
-                StartCoroutine(RagdollDelay(ragdoll, ragdollDelay));
 
                 //Destroys the enemy after specified time frame.
                 Destroy(other.gameObject, timeTillDestroy);
