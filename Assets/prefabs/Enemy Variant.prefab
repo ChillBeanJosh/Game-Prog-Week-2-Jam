@@ -77,6 +77,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6191772697283169846, guid: 3e3ab53086d6f47208e89f3617404383, type: 3}
+      propertyPath: moveSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6191772697283169846, guid: 3e3ab53086d6f47208e89f3617404383, type: 3}
       propertyPath: attackCooldown
       value: 3
       objectReference: {fileID: 0}

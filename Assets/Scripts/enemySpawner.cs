@@ -16,6 +16,14 @@ public class enemySpawner : MonoBehaviour
         InvokeRepeating("SpawnEnemy", 0f, spawnTime);
     }
 
+    public void SetSpawnTime(float newSpawnTime)
+    {
+        spawnTime = newSpawnTime;
+
+        CancelInvoke("SpawnEnemy");
+        InvokeRepeating("SpawnEnemy", 0f, spawnTime);
+
+    }
 
     void SpawnEnemy()
     {
